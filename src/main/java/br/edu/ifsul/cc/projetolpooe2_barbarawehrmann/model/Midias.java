@@ -1,4 +1,4 @@
-package br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.model;
+package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -59,5 +59,10 @@ public class Midias implements Serializable {
 
     public void setNoticias(List<Noticias> noticias) {
         this.noticias = noticias;
+    }
+    
+    @Override
+    public String toString() {
+        return descricao;
     }
 }

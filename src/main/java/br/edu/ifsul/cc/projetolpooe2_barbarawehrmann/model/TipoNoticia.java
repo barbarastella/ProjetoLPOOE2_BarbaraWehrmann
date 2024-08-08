@@ -1,4 +1,4 @@
-package br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.model;
+package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -35,5 +35,10 @@ public class TipoNoticia implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    
+    @Override
+    public String toString() {
+        return descricao;
     }
 }

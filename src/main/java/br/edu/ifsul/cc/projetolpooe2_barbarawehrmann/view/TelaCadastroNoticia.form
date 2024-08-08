@@ -28,39 +28,42 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblConteudo1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblTitulo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblConteudo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblMidiasNoticia" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblSelecioneMidia" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cbSelecionarMidia" min="-2" pref="226" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Component id="btnMais" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="btnCancelar" min="-2" pref="185" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnSalvar" min="-2" pref="185" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtTitulo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jsConteudo" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblTipo" min="-2" max="-2" attributes="0"/>
                                   <Component id="cbTipoNoticia" min="-2" pref="254" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="lblAdicionarTipo" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblTitulo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblConteudo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jsConteudo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtTitulo" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jsMidias" max="32767" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnMais" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnMenos" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="btnMenos" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnAdicionarMidia" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblAdicionarTipo1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnCancelar" min="-2" pref="177" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnSalvar" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblSelecioneMidia" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbSelecionarMidia" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="separador" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
+                          <Component id="jsMidias" min="-2" pref="380" max="-2" attributes="0"/>
+                          <Component id="separador" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -97,25 +100,24 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblSelecioneMidia" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbSelecionarMidia" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblConteudo1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnMais" min="-2" pref="62" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnMenos" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="cbSelecionarMidia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMais" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jsMidias" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblMidiasNoticia" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jsMidias" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblAdicionarTipo1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCancelar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnSalvar" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnMenos" alignment="3" pref="23" max="32767" attributes="0"/>
+                  <Component id="btnAdicionarMidia" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
           </Group>
@@ -150,7 +152,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
+        <Component class="javax.swing.JTextArea" name="txtConteudo">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -173,14 +175,16 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoNoticia&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblConteudo1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="M&#xed;dias da not&#xed;cia"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="lblAdicionarTipo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Adicionar novo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="separador">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="99" type="rgb"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblSelecioneMidia">
@@ -189,20 +193,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbSelecionarMidia">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoNoticia&gt;"/>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="TelaCadastroNoticia_cbSelecionarMidia"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Midias&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JSeparator" name="separador">
+    <Component class="javax.swing.JLabel" name="lblMidiasNoticia">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
+        <Property name="text" type="java.lang.String" value="M&#xed;dias da not&#xed;cia"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jsMidias">
@@ -231,6 +229,30 @@
         </Property>
         <Property name="text" type="java.lang.String" value="+"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMaisActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAdicionarMidia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Adicionar nova"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCancelar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancelar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSalvar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMenos">
       <Properties>
@@ -239,21 +261,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="lblAdicionarTipo1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Adicionar nova"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnSalvar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Salvar"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnCancelar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cancelar"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenosActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

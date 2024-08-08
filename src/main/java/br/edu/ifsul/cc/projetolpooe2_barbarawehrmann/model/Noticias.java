@@ -1,4 +1,4 @@
-package br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.model;
+package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -78,5 +78,10 @@ public class Noticias implements Serializable {
 
     public void setMidias(List<Midias> midias) {
         this.midias = midias;
+    }
+    
+    @Override
+    public String toString() {
+        return titulo;
     }
 }

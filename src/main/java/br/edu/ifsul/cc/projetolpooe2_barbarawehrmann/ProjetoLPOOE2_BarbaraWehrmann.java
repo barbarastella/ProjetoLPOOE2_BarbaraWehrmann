@@ -1,6 +1,6 @@
-package br.edu.ifsul.cc.projetolpooe1_barbarawehrmann;
+package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann;
 
-public class ProjetoLPOOE1_BarbaraWehrmann {
+public class ProjetoLPOOE2_BarbaraWehrmann {
 
     public static void main(String[] args) {
         System.out.println("Arquivo principal :D");

@@ -1,4 +1,4 @@
-package br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.dao;
+package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.dao;
 
 public interface InterfacePersistencia {
     

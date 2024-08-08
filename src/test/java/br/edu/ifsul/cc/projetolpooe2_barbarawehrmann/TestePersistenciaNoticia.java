@@ -1,9 +1,9 @@
-package br.edu.ifsul.cc.projetolpooe1_barbarawehrmann;
+package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann;
 
-import br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.dao.PersistenciaJPA;
-import br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.model.Midias;
-import br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.model.Noticias;
-import br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.model.TipoNoticia;
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.Midias;
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.Noticias;
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.TipoNoticia;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;

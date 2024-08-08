@@ -1,6 +1,6 @@
-package br.edu.ifsul.cc.projetolpooe1_barbarawehrmann;
+package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann;
 
-import br.edu.ifsul.cc.projetolpooe1_barbarawehrmann.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.dao.PersistenciaJPA;
 import org.junit.Test;
 
 public class TestePersistencia {
