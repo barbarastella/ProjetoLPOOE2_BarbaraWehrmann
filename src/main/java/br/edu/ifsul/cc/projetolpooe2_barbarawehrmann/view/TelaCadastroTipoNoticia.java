@@ -1,7 +1,14 @@
 package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.view;
 
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.TipoNoticia;
+import javax.swing.JOptionPane;
+
 public class TelaCadastroTipoNoticia extends javax.swing.JDialog {
-public TelaCadastroTipoNoticia(java.awt.Frame parent, boolean modal) {
+
+    PersistenciaJPA jpa = new PersistenciaJPA();
+
+    public TelaCadastroTipoNoticia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -24,8 +31,18 @@ public TelaCadastroTipoNoticia(java.awt.Frame parent, boolean modal) {
         lblDescricao.setText("Descrição:");
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,6 +84,28 @@ public TelaCadastroTipoNoticia(java.awt.Frame parent, boolean modal) {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        if (txtDescricao.getText().isEmpty()) { // validação
+            JOptionPane.showMessageDialog(this, "ERRO: A descrição não pode estar vazia!");
+            return;
+        } else {
+            TipoNoticia novoTipo = new TipoNoticia(); // cria novo tipo
+            novoTipo.setDescricao(txtDescricao.getText().trim());
+            
+            jpa.conexaoAberta();
+            jpa.persist(novoTipo);
+            jpa.fecharConexao();
+            
+            JOptionPane.showMessageDialog(this, "Tipo de notícia salvo com sucesso!");
+            dispose();
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

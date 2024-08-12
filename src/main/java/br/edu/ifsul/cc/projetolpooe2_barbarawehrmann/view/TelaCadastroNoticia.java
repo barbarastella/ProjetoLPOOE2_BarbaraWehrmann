@@ -1,5 +1,6 @@
 package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.view;
 
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.view.TelaSistemaNoticias;
 import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.TipoNoticia;
 import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.Midias;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class TelaCadastroNoticia extends javax.swing.JFrame {
 
-    private PersistenciaJPA jpa;
+    private PersistenciaJPA jpa = new PersistenciaJPA();
     private Noticias noticiaAtual;
 
     public TelaCadastroNoticia() {
@@ -29,7 +30,6 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
     }
 
     private void listarTiposDeNoticia() {
-        jpa = new PersistenciaJPA();
         List<TipoNoticia> tiposNoticia = jpa.getTiposDeNoticia();
 
         if (tiposNoticia != null) {
@@ -46,7 +46,6 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
     }
 
     private void listarMidias() {
-        jpa = new PersistenciaJPA();
         List<Midias> midiasList = jpa.getMidias();
 
         if (midiasList != null) {
@@ -74,7 +73,7 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
         txtConteudo = new javax.swing.JTextArea();
         lblTipo = new javax.swing.JLabel();
         cbTipoNoticia = new javax.swing.JComboBox<>();
-        lblAdicionarTipo = new javax.swing.JButton();
+        btnCadastrarTipo = new javax.swing.JButton();
         separador = new javax.swing.JSeparator();
         lblSelecioneMidia = new javax.swing.JLabel();
         cbSelecionarMidia = new javax.swing.JComboBox<>();
@@ -82,7 +81,7 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
         jsMidias = new javax.swing.JScrollPane();
         lstMidias = new javax.swing.JList<>();
         btnMais = new javax.swing.JButton();
-        btnAdicionarMidia = new javax.swing.JButton();
+        btnCadastrarMidia = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnMenos = new javax.swing.JButton();
@@ -92,17 +91,22 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
         lblCadastroNoticias.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCadastroNoticias.setText("CADASTRO E EDIÇÃO DE NOTÍCIAS");
 
-        lblTitulo.setText("Título:");
+        lblTitulo.setText("Título");
 
-        lblConteudo.setText("Conteúdo:");
+        lblConteudo.setText("Conteúdo");
 
         txtConteudo.setColumns(20);
         txtConteudo.setRows(5);
         jsConteudo.setViewportView(txtConteudo);
 
-        lblTipo.setText("Tipo:");
+        lblTipo.setText("Tipo");
 
-        lblAdicionarTipo.setText("Adicionar novo");
+        btnCadastrarTipo.setText("Cadastrar novo");
+        btnCadastrarTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarTipoActionPerformed(evt);
+            }
+        });
 
         separador.setForeground(new java.awt.Color(153, 153, 153));
 
@@ -112,15 +116,19 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
 
         jsMidias.setViewportView(lstMidias);
 
-        btnMais.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnMais.setText("+");
+        btnMais.setText("Inserir");
         btnMais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMaisActionPerformed(evt);
             }
         });
 
-        btnAdicionarMidia.setText("Adicionar nova");
+        btnCadastrarMidia.setText("Cadastrar nova");
+        btnCadastrarMidia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarMidiaActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,8 +144,7 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
             }
         });
 
-        btnMenos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnMenos.setText("-");
+        btnMenos.setText("Remover mídia");
         btnMenos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenosActionPerformed(evt);
@@ -151,41 +158,42 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblTitulo)
-                            .addComponent(lblConteudo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMidiasNoticia)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblSelecioneMidia)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbSelecionarMidia, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(8, 8, 8)
-                                .addComponent(btnMais))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtTitulo)
-                            .addComponent(jsConteudo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTipo)
-                                    .addComponent(cbTipoNoticia, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(lblAdicionarTipo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnMenos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdicionarMidia))
-                            .addComponent(jsMidias, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(separador)))
+                        .addGap(97, 97, 97)
+                        .addComponent(lblCadastroNoticias))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(lblCadastroNoticias)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblTitulo)
+                                .addComponent(lblConteudo)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblMidiasNoticia)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(lblSelecioneMidia)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cbSelecionarMidia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnMais))
+                                .addComponent(txtTitulo)
+                                .addComponent(jsConteudo)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblTipo)
+                                        .addComponent(cbTipoNoticia, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnCadastrarTipo))
+                                .addComponent(separador)
+                                .addComponent(jsMidias)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnMenos)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCadastrarMidia))))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,7 +213,7 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbTipoNoticia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAdicionarTipo))
+                    .addComponent(btnCadastrarTipo))
                 .addGap(20, 20, 20)
                 .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -220,13 +228,13 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
                 .addComponent(jsMidias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMenos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
-                    .addComponent(btnAdicionarMidia))
-                .addGap(18, 18, 18)
+                    .addComponent(btnMenos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarMidia))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnSalvar))
-                .addGap(17, 17, 17))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnCancelar))
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -260,7 +268,6 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
-        jpa = new PersistenciaJPA();
         jpa.conexaoAberta();
 
         List<Midias> midiasSelecionadas = new ArrayList<>();
@@ -284,8 +291,7 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
                         midiasSelecionadas.add(modelMidiasSelecionadas.getElementAt(i)); // adiciona ao model as mídias do list
                     }
                 } else {
-                    for (Midias midia : noticiaAtual.getMidias()) { // seta as mídais existentes da notícia ao model
-                        System.out.println("mídia: " + midia + "\n");
+                    for (Midias midia : noticiaAtual.getMidias()) { // seta as mídias existentes da notícia ao model
                         modelMidiasSelecionadas.addElement(midia);
                     }
                 }
@@ -297,20 +303,32 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
                 return;
             }
 
-            noticiaAtual.setTitulo(txtTitulo.getText());
-            noticiaAtual.setConteudo(txtConteudo.getText());
+            noticiaAtual.setTitulo(txtTitulo.getText().trim());
+            noticiaAtual.setConteudo(txtConteudo.getText().trim());
             noticiaAtual.setTipo_noticia((TipoNoticia) cbTipoNoticia.getSelectedItem());
             noticiaAtual.setMidias(midiasSelecionadas);
 
             jpa.persist(noticiaAtual);
+            jpa.fecharConexao();
 
             JOptionPane.showMessageDialog(this, "Notícia salva com sucesso!");
+
             dispose();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao salvar a notícia: " + e.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCadastrarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarTipoActionPerformed
+        TelaCadastroTipoNoticia telaCadastroTipoNoticia = new TelaCadastroTipoNoticia(new javax.swing.JFrame(), true);
+        telaCadastroTipoNoticia.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarTipoActionPerformed
+
+    private void btnCadastrarMidiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMidiaActionPerformed
+        TelaCadastroMidia telaCadastroMidia = new TelaCadastroMidia(new javax.swing.JFrame(), true);
+        telaCadastroMidia.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarMidiaActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -340,7 +358,8 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionarMidia;
+    private javax.swing.JButton btnCadastrarMidia;
+    private javax.swing.JButton btnCadastrarTipo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnMais;
     private javax.swing.JButton btnMenos;
@@ -349,7 +368,6 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
     private javax.swing.JComboBox<TipoNoticia> cbTipoNoticia;
     private javax.swing.JScrollPane jsConteudo;
     private javax.swing.JScrollPane jsMidias;
-    private javax.swing.JButton lblAdicionarTipo;
     private javax.swing.JLabel lblCadastroNoticias;
     private javax.swing.JLabel lblConteudo;
     private javax.swing.JLabel lblMidiasNoticia;

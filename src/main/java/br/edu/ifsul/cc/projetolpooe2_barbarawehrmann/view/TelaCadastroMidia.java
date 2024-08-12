@@ -1,6 +1,12 @@
 package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.view;
 
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.Midias;
+import javax.swing.JOptionPane;
+
 public class TelaCadastroMidia extends javax.swing.JDialog {
+
+    PersistenciaJPA jpa = new PersistenciaJPA();
 
     public TelaCadastroMidia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -29,8 +35,18 @@ public class TelaCadastroMidia extends javax.swing.JDialog {
         lblURL.setText("URL:");
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,6 +96,30 @@ public class TelaCadastroMidia extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        if (txtDescricao.getText().isEmpty() || txtURL.getText().isEmpty()) { // validação
+            JOptionPane.showMessageDialog(this, "ERRO: A descrição e a URL não podem estar vazias!");
+            return;
+        } else {
+
+            Midias novaMidia = new Midias(); // cria nova mídia
+            novaMidia.setDescricao(txtDescricao.getText().trim());
+            novaMidia.setUrl(txtURL.getText().trim());
+
+            jpa.conexaoAberta();
+            jpa.persist(novaMidia); // salva a mídia
+            jpa.fecharConexao();
+
+            JOptionPane.showMessageDialog(this, "Mídia salva com sucesso!");
+            dispose();
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
