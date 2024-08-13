@@ -62,7 +62,7 @@ public class PersistenciaJPA implements InterfacePersistencia {
         }
     }
 
-    @Override
+    /* @Override
     public void remover(Object o) throws Exception {
         EntityManager em = getEntityManager();
         try {
@@ -78,9 +78,29 @@ public class PersistenciaJPA implements InterfacePersistencia {
             }
             throw e;
         }
-    }
+    }*/
     
-     public List<Noticias> getNoticias() {
+    @Override
+    public void remover(Object o) throws Exception { 
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            if (!em.contains(o)) {
+                o = em.merge(o);
+            }
+            em.remove(o);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Noticias> getNoticias() {
         try {
             TypedQuery<Noticias> query = entity.createQuery("SELECT n FROM Noticias n", Noticias.class);
             return query.getResultList();
@@ -89,8 +109,8 @@ public class PersistenciaJPA implements InterfacePersistencia {
             return null;
         }
     }
-     
-      public List<TipoNoticia> getTiposDeNoticia() {
+
+    public List<TipoNoticia> getTiposDeNoticia() {
         try {
             TypedQuery<TipoNoticia> query = entity.createQuery("SELECT t FROM TipoNoticia t", TipoNoticia.class);
             return query.getResultList();

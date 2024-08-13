@@ -99,7 +99,7 @@ public class TelaCadastroTipoNoticia extends javax.swing.JDialog {
             novoTipo.setDescricao(txtDescricao.getText().trim());
             
             jpa.conexaoAberta();
-            jpa.persist(novoTipo);
+            jpa.persist(novoTipo); // salva o tipo
             jpa.fecharConexao();
             
             JOptionPane.showMessageDialog(this, "Tipo de notícia salvo com sucesso!");

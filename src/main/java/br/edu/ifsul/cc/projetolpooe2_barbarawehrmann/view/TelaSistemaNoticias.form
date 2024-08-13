@@ -66,8 +66,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="spNoticias" min="-2" pref="171" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAdicionar" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnAdicionar" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEditar" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="btnRemoverNoticia" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
@@ -82,7 +82,7 @@
               <Component id="spMidias" min="-2" pref="91" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSair" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -117,9 +117,6 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="lstNoticiasValueChanged"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Noticias&gt;"/>
           </AuxValues>

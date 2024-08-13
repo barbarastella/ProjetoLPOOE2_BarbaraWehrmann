@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 public class TelaSistemaNoticias extends javax.swing.JFrame {
 
     private PersistenciaJPA jpa = new PersistenciaJPA();
-    private List<Noticias> noticiasList;
+    private List<Noticias> noticiasList = new ArrayList<>();
 
     public TelaSistemaNoticias() {
         initComponents();
-        noticiasList = new ArrayList<>();
+
         listarNoticias(); // mostra as notícias logo após inicializar os componentes
 
         lstNoticias.addListSelectionListener(e -> { // método para verificar seleção de um item da lista
@@ -23,32 +23,37 @@ public class TelaSistemaNoticias extends javax.swing.JFrame {
                 mostrarDetalhesNoticia();
             }
         });
+
         lstMidias.setEnabled(false); // desabilita edição do lstMidias
     }
 
     public void listarNoticias() {
-
         lstNoticias.clearSelection();
+
         jpa.conexaoAberta();
         noticiasList = jpa.getNoticias();
+
+        for (Noticias noticia : noticiasList) { // carrega as mídias enquanto a sessão está aberta
+            noticia.getMidias().size(); // chama size() para inicializar a list de mídias
+        }
+
         jpa.fecharConexao();
 
-        System.out.println("Noticias: " + noticiasList);
         DefaultListModel<Noticias> modelNoticiasList = new DefaultListModel<>();
-
         modelNoticiasList.clear();
+
         for (Noticias noticia : noticiasList) {
             modelNoticiasList.addElement(noticia);
         }
 
-        lstNoticias.setModel(modelNoticiasList); // seta as notícias no list
+        lstNoticias.setModel(modelNoticiasList);
     }
 
     private void mostrarDetalhesNoticia() {
         int noticiaSelecionada = lstNoticias.getSelectedIndex();
 
         if (noticiaSelecionada != -1) { // -1 = nenhuma notícia selecionada
-            
+
             jpa.conexaoAberta();
             noticiasList = jpa.getNoticias();
             jpa.fecharConexao();
@@ -92,11 +97,6 @@ public class TelaSistemaNoticias extends javax.swing.JFrame {
         lblNoticias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNoticias.setText("Notícias");
 
-        lstNoticias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstNoticiasValueChanged(evt);
-            }
-        });
         spNoticias.setViewportView(lstNoticias);
 
         btnEditar.setText("Editar");
@@ -175,9 +175,9 @@ public class TelaSistemaNoticias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spNoticias, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdicionar)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRemoverNoticia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -189,7 +189,7 @@ public class TelaSistemaNoticias extends javax.swing.JFrame {
                 .addComponent(spMidias, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSair)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,10 +198,12 @@ public class TelaSistemaNoticias extends javax.swing.JFrame {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         TelaCadastroNoticia telaCadastroNoticia = new TelaCadastroNoticia(); // gera uma nova TelaCadastroNoticia
 
-        telaCadastroNoticia.addWindowListener(new java.awt.event.WindowAdapter() {
+        telaCadastroNoticia.addWindowListener(new java.awt.event.WindowAdapter() { // adiciona um verificador para quando a janela telaCadastroNoticia fechar
             @Override
-            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                listarNoticias(); // Atualiza a lista de notícias após a janela ser fechada
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) { // quando a janela fechar
+                    jpa.conexaoAberta();
+                    listarNoticias(); // atualiza a lista de notícias
+                    jpa.fecharConexao();
             }
         });
 
@@ -216,17 +218,21 @@ public class TelaSistemaNoticias extends javax.swing.JFrame {
         if (noticiaSelecionada != null) {
             TelaCadastroNoticia telaCadastroNoticia = new TelaCadastroNoticia(); // gera uma nova TelaCadastroNoticia
 
-            telaCadastroNoticia.addWindowListener(new java.awt.event.WindowAdapter() {
+            telaCadastroNoticia.addWindowListener(new java.awt.event.WindowAdapter() { // adiciona um verificador para quando a janela telaCadastroNoticia fechar
                 @Override
-                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                    listarNoticias(); // Atualiza a lista de notícias após a janela ser fechada
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) { // quando a janela fechar
+                    jpa.conexaoAberta();
+                    listarNoticias(); // atualiza a lista de notícias
+                    jpa.fecharConexao();
                 }
             });
 
             telaCadastroNoticia.setNoticia(noticiaSelecionada); // seta a notícia
             telaCadastroNoticia.setVisible(true); // mostra a tela
 
+            jpa.conexaoAberta();
             listarNoticias();
+            jpa.fecharConexao();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -247,20 +253,17 @@ public class TelaSistemaNoticias extends javax.swing.JFrame {
                     jpa.remover(noticiaSelecionada);
                 } catch (Exception e) {
                     System.out.println("ERRO: Não foi possível excluir esta notícia!");
-                } finally {
+                } finally { // executa mesmo se cair no catch
                     jpa.fecharConexao();
                     listarNoticias();
                 }
             }
+
+            jpa.conexaoAberta();
             listarNoticias();
+            jpa.fecharConexao();
         }
     }//GEN-LAST:event_btnRemoverNoticiaActionPerformed
-
-    private void lstNoticiasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstNoticiasValueChanged
-//        if (!evt.getValueIsAdjusting()) { // verifica se uma notícia foi selecionada
-//            mostrarDetalhesNoticia();
-//        }
-    }//GEN-LAST:event_lstNoticiasValueChanged
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

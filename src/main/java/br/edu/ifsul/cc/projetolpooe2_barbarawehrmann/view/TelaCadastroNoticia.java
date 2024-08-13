@@ -1,6 +1,5 @@
 package br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.view;
 
-import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.view.TelaSistemaNoticias;
 import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.TipoNoticia;
 import br.edu.ifsul.cc.projetolpooe2_barbarawehrmann.model.Midias;
@@ -13,11 +12,12 @@ import javax.swing.JOptionPane;
 
 public class TelaCadastroNoticia extends javax.swing.JFrame {
 
-    private PersistenciaJPA jpa = new PersistenciaJPA();
+    private PersistenciaJPA jpa; // não instancia globalmente
     private Noticias noticiaAtual;
 
     public TelaCadastroNoticia() {
         initComponents();
+
         listarTiposDeNoticia(); // mostra os tipos de notícias logo após inicializar os componentes
         listarMidias(); // mostra as mídias logo após inicializar os componentes
 
@@ -30,35 +30,45 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
     }
 
     private void listarTiposDeNoticia() {
+        jpa = new PersistenciaJPA(); // nova instância
+        jpa.conexaoAberta();
+
         List<TipoNoticia> tiposNoticia = jpa.getTiposDeNoticia();
 
         if (tiposNoticia != null) {
-            DefaultComboBoxModel<TipoNoticia> modelTipos = new DefaultComboBoxModel<>();
+            DefaultComboBoxModel<TipoNoticia> modelTipos = new DefaultComboBoxModel<>(); // se tem tipos, cria novo model
 
             for (TipoNoticia tipo : tiposNoticia) {
-                modelTipos.addElement(tipo);
+                modelTipos.addElement(tipo); // seta os tipos no model
             }
 
             cbTipoNoticia.setModel(modelTipos); // seta os tipos no combo box
         } else {
             JOptionPane.showMessageDialog(this, "Houve um erro ao carregar tipos de notícia!");
         }
+
+        jpa.fecharConexao();
     }
 
     private void listarMidias() {
+        jpa = new PersistenciaJPA(); // nova instância
+        jpa.conexaoAberta();
+
         List<Midias> midiasList = jpa.getMidias();
 
         if (midiasList != null) {
-            DefaultComboBoxModel<Midias> model = new DefaultComboBoxModel<>();
+            DefaultComboBoxModel<Midias> model = new DefaultComboBoxModel<>(); // se tem mídias, cria novo model
 
             for (Midias midia : midiasList) {
-                model.addElement(midia);
+                model.addElement(midia); // seta as mídias no model
             }
 
             cbSelecionarMidia.setModel(model); // seta as mídias no combo box
         } else {
             JOptionPane.showMessageDialog(this, "Houve um erro ao carregar as mídias!");
         }
+
+        jpa.fecharConexao();
     }
 
     @SuppressWarnings("unchecked")
@@ -244,10 +254,10 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
         Midias midiaSelecionada = (Midias) cbSelecionarMidia.getSelectedItem(); // pega a imagem selecionada no combo box
 
         if (midiaSelecionada != null) {
-            DefaultListModel<Midias> modelMidiasSelecionadas = (DefaultListModel<Midias>) lstMidias.getModel();
-            modelMidiasSelecionadas.addElement(midiaSelecionada);
+            DefaultListModel<Midias> modelMidiasSelecionadas = (DefaultListModel<Midias>) lstMidias.getModel(); // atribui o model existente ao novo model
+            modelMidiasSelecionadas.addElement(midiaSelecionada); // adiciona ao novo model a mídia selecionada no combo box
 
-            lstMidias.setModel(modelMidiasSelecionadas); // seta a imagem no list
+            lstMidias.setModel(modelMidiasSelecionadas); // seta as mídias atualizadas no list
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecione uma mídia para adicionar.");
         }
@@ -258,41 +268,41 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenosActionPerformed
-        int midiaSelecionada = lstMidias.getSelectedIndex();
+        int midiaSelecionada = lstMidias.getSelectedIndex(); // pega a mídia selecionada no list
 
         if (midiaSelecionada != -1) { // -1 = nenhuma mídia selecionada
-            DefaultListModel<Midias> model = (DefaultListModel<Midias>) lstMidias.getModel();
-            model.remove(midiaSelecionada); // remove a imagem da list
+            DefaultListModel<Midias> model = (DefaultListModel<Midias>) lstMidias.getModel(); // atribui o model existente ao novo model
+            model.remove(midiaSelecionada); // remove a mídia selecionada do model
         }
     }//GEN-LAST:event_btnMenosActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+        jpa = new PersistenciaJPA(); // nova instância
         jpa.conexaoAberta();
 
         List<Midias> midiasSelecionadas = new ArrayList<>();
-        DefaultListModel<Midias> modelMidiasSelecionadas = (DefaultListModel<Midias>) lstMidias.getModel();
+        DefaultListModel<Midias> modelMidiasSelecionadas = (DefaultListModel<Midias>) lstMidias.getModel(); // atribui o model existente ao novo model
 
         try {
-            if (noticiaAtual == null) { // situação 1: adicionar nova notícia
+            if (noticiaAtual == null) { // ADICIONAR NOVA NOTÍCIA
 
-                noticiaAtual = new Noticias();
+                noticiaAtual = new Noticias(); // instancia nova notícia
 
                 for (int i = 0; i < modelMidiasSelecionadas.getSize(); i++) {
                     midiasSelecionadas.add(modelMidiasSelecionadas.getElementAt(i)); // adiciona ao model as mídias do list
                 }
 
-            } else { // situação 2: editar notícia existente
+            } else { // EDITAR NOTÍCIA EXISTENTE
 
                 noticiaAtual = (Noticias) jpa.find(Noticias.class, noticiaAtual.getId()); // pega a notícia existente no banco
 
-                if (midiasSelecionadas.isEmpty()) {
+                if (midiasSelecionadas.isEmpty()) { // se o model estiver vazio
                     for (int i = 0; i < modelMidiasSelecionadas.getSize(); i++) {
                         midiasSelecionadas.add(modelMidiasSelecionadas.getElementAt(i)); // adiciona ao model as mídias do list
                     }
-                } else {
-                    for (Midias midia : noticiaAtual.getMidias()) { // seta as mídias existentes da notícia ao model
-                        modelMidiasSelecionadas.addElement(midia);
+                } else { // se tiver conteúdo no model
+                    for (Midias midia : noticiaAtual.getMidias()) { 
+                        modelMidiasSelecionadas.addElement(midia); // seta as mídias existentes da notícia ao model
                     }
                 }
             }
@@ -308,7 +318,7 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
             noticiaAtual.setTipo_noticia((TipoNoticia) cbTipoNoticia.getSelectedItem());
             noticiaAtual.setMidias(midiasSelecionadas);
 
-            jpa.persist(noticiaAtual);
+            jpa.persist(noticiaAtual); // salva a notícia
             jpa.fecharConexao();
 
             JOptionPane.showMessageDialog(this, "Notícia salva com sucesso!");
@@ -321,13 +331,17 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCadastrarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarTipoActionPerformed
-        TelaCadastroTipoNoticia telaCadastroTipoNoticia = new TelaCadastroTipoNoticia(new javax.swing.JFrame(), true);
-        telaCadastroTipoNoticia.setVisible(true);
+        TelaCadastroTipoNoticia telaCadastroTipoNoticia = new TelaCadastroTipoNoticia(new javax.swing.JFrame(), true); // cria nova TelaCadastroTipoNoticia
+        telaCadastroTipoNoticia.setVisible(true); // mostra a tela
+        
+        listarTiposDeNoticia();
     }//GEN-LAST:event_btnCadastrarTipoActionPerformed
 
     private void btnCadastrarMidiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMidiaActionPerformed
-        TelaCadastroMidia telaCadastroMidia = new TelaCadastroMidia(new javax.swing.JFrame(), true);
-        telaCadastroMidia.setVisible(true);
+        TelaCadastroMidia telaCadastroMidia = new TelaCadastroMidia(new javax.swing.JFrame(), true); // cria nova TelaCadastroMidia
+        telaCadastroMidia.setVisible(true); // mostra a tela
+        
+        listarMidias();
     }//GEN-LAST:event_btnCadastrarMidiaActionPerformed
 
     public static void main(String args[]) {
@@ -342,19 +356,20 @@ public class TelaCadastroNoticia extends javax.swing.JFrame {
         return noticiaAtual;
     }
 
-    public void setNoticia(Noticias noticia) {
+    public void setNoticia(Noticias noticia) { // método para setar informações já existentes no banco nos campos para editar uma notícia
         this.noticiaAtual = noticia;
-        txtTitulo.setText(noticiaAtual.getTitulo());
-        txtConteudo.setText(noticiaAtual.getConteudo());
-        cbTipoNoticia.setSelectedItem(noticiaAtual.getTipo_noticia());
+        
+        txtTitulo.setText(noticiaAtual.getTitulo()); // coloca o título no campo de texto
+        txtConteudo.setText(noticiaAtual.getConteudo()); // coloca o conteúdo no campo de texto
+        cbTipoNoticia.setSelectedItem(noticiaAtual.getTipo_noticia()); // coloca o tipo como pré-selecionado no combo box
 
         DefaultListModel<Midias> listModel = new DefaultListModel<>();
 
-        for (Midias midia : noticiaAtual.getMidias()) { // seta as mídais existentes da notícia ao model
+        for (Midias midia : noticiaAtual.getMidias()) { // seta as mídias existentes da notícia ao model
             listModel.addElement(midia);
         }
 
-        lstMidias.setModel(listModel); // seta as mídias à list
+        lstMidias.setModel(listModel); // seta as mídias ao list
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

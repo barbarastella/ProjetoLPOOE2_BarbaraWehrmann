@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -32,13 +33,20 @@ public class Noticias implements Serializable {
     @JoinColumn(name = "tipo_noticia")
     private TipoNoticia tipo_noticia;
 
-    @ManyToMany
+    /*@ManyToMany
+    @JoinTable(name = "tb_noticiaMidia",
+            joinColumns = @JoinColumn(name = "noticia_id"),
+            inverseJoinColumns = @JoinColumn(name = "midia_id"))
+    private List<Midias> midias = new ArrayList<>();*/
+    
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_noticiaMidia",
             joinColumns = @JoinColumn(name = "noticia_id"),
             inverseJoinColumns = @JoinColumn(name = "midia_id"))
     private List<Midias> midias = new ArrayList<>();
 
-    public Noticias() {}
+    public Noticias() {
+    }
 
     public Integer getId() {
         return id;
@@ -79,7 +87,7 @@ public class Noticias implements Serializable {
     public void setMidias(List<Midias> midias) {
         this.midias = midias;
     }
-    
+
     @Override
     public String toString() {
         return titulo;
